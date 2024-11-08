@@ -1,18 +1,3 @@
-import { firestoreDb, doc, updateDoc } from './firebaseConfig.js';
-import { realtimeDb } from './firebaseConfig.js';
-import { ref, set, onValue, update } from 'https://www.gstatic.com/firebasejs/9.6.1/firebase-database.js';
-
-// Variables de estado
-let player1Score = 0;
-let player2Score = 0;
-let countdownInterval;
-let eleccionJugador = null;
-const roomId = localStorage.getItem('roomId');
-const playerName = localStorage.getItem('playerName');
-const player1Name = localStorage.getItem('player1Name');
-const player2Name = localStorage.getItem('player2Name');
-const opciones = ['piedra', 'papel', 'tijeras'];
-
 document.addEventListener('DOMContentLoaded', () => {
     const countdownElement = document.getElementById('countdown');
     const loader = document.getElementById('loader');
@@ -22,10 +7,21 @@ document.addEventListener('DOMContentLoaded', () => {
     const recordDiv = document.getElementById('record');
     let countdown = 5;
 
+    // Mapeo de IDs de imágenes a opciones
+    const idToChoiceMap = {
+        'Mano0': 'papel',
+        'Mano1': 'piedra',
+        'Mano2': 'tijeras'
+    };
+
     document.querySelectorAll('.section-1 img').forEach(img => {
         img.addEventListener('click', (event) => {
-            eleccionJugador = event.target.id;
-            enviarEleccion(eleccionJugador);
+            const eleccionJugador = idToChoiceMap[event.target.id];  // Mapeo del ID a la elección
+            if (eleccionJugador) {
+                enviarEleccion(eleccionJugador);
+            } else {
+                console.error("No se pudo mapear la elección del jugador.");
+            }
         });
     });
 
