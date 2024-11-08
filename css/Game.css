@@ -1,0 +1,127 @@
+body {
+    background-image: linear-gradient(rgba(82, 82, 82, 0.75), rgba(82, 82, 85, 0.75)), url(fondo.png);
+    background-size: 70px;
+    margin: 0;
+    font-family: Arial, sans-serif;
+}
+
+.section-1 {
+    display: flex; 
+    justify-content: center; 
+    align-items: center;
+    margin-top: 165px; /* Ajusta este margen si es necesario */
+    position: relative;
+}
+
+.section-1 img {
+    width: 160px; 
+    margin: 0 20px; 
+    transition: transform 0.3s ease-in-out;
+    cursor: pointer;
+    position: relative; /* Asegura que cada imagen se maneje de forma independiente */
+}
+
+.section-1 img.selected {
+    transform: translateY(-70px); /* Subir la imagen seleccionada 70px */
+}
+
+.container {
+    text-align: center;
+    position: relative;
+    height: 160px; /* Añadir una altura fija para evitar cambios inesperados */
+}
+
+.loader {
+    border: 16px solid #f3f3f3;
+    border-radius: 50%;
+    border-top: 16px solid #3498db;
+    width: 120px;
+    height: 120px;
+    animation: spin 2s linear infinite;
+    margin: 0 auto;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+.countdown {
+    font-size: 3em;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.resultado {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 600px;
+    height: 350px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    background-color: #fff;
+    border-radius: 20px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+    padding: 20px;
+    z-index: 100;
+}
+
+.resultado.hidden {
+    display: none;
+}
+
+.resultado.verde {
+    background-color: #4CAF50; /* Color verde si ganas */
+}
+
+.resultado.rojo {
+    background-color: #F44336; /* Color rojo si pierdes */
+}
+
+.resultado.naranja {
+    background-color: #FFA500; /* Color naranja si es empate */
+}
+
+.resultado-texto {
+    font-size: 2em;
+    margin-bottom: 20px;
+}
+
+.record {
+    font-size: 1.2em;
+    margin-top: 20px;
+}
+
+#reiniciar-btn {
+    padding: 10px 20px;
+    font-size: 1em;
+    margin-top: 20px;
+    cursor: pointer;
+}
+
+#reiniciar-btn.hidden {
+    display: none;
+}
+
+.computadora-imagen {
+    position: absolute;
+    top: -160px; /* Empieza fuera de la pantalla */
+    left: 50%;
+    transform: translateX(-50%);
+    transition: top 2s ease;
+}
+
+.computadora-imagen img {
+    width: 160px;
+}
+
+.computadora-imagen.hidden {
+    display: none;
+}

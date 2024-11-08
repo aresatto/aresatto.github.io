@@ -1,0 +1,115 @@
+/* Estilos para el archivo de inicio */
+body {
+    background-image: linear-gradient(rgba(69, 69, 71, 0.75), rgba(37, 37, 37, 0.75)), url(fondo.png);
+    background-size: 70px;
+    margin: 0;
+    font-family: Arial, sans-serif;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    font-family: "Roboto", sans-serif;
+    font-weight: bold;
+    text-transform: uppercase;
+}
+
+.section-1 {
+    display: flex;
+    height: 100vh;
+    gap: 25px;
+    flex-wrap: wrap;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+
+.titulo-inicio {
+    margin: 0;
+    font-size: 3em; /* Ajusta el tamaño del título */
+    color: #100241;
+    font-family: 'Courier New', Courier, monospace;
+}
+
+.btn {
+    border: 3px solid;
+    position: relative;
+    padding: 20px 60px; /* Ajusta el tamaño del botón */
+    text-decoration: none;
+    letter-spacing: 8px; /* Ajusta el espaciado de letras */
+    color: #fff;
+    transition: all 0.6s ease;
+}
+
+:root {
+    --color: aqua;
+}
+
+.btn-1 {
+    border: 3px solid;
+}
+
+.btn-1:hover {
+    background-color: #001a2b;
+    box-shadow: 0 0 20px var(--color);
+    border-color: var(--color);
+}
+
+.btn-1 span:nth-child(n) {
+    position: absolute;
+    width: 12px; /* Ajusta el tamaño de los spans en el botón */
+    height: 12px;
+    border: 3px solid;
+    transition: all 0.6s ease;
+}
+
+.btn-1 span:nth-child(1) {
+    right: 10%;
+    top: -10px;
+    background-color: #fff;
+}
+
+.btn-1 span:nth-child(2) {
+    left: 10%;
+    bottom: -10px;
+}
+
+.btn-1:hover span:nth-child(1) {
+    right: 80%;
+    transform: rotate(90deg);
+    color: var(--color);
+    background-color: var(--color);
+}
+
+.btn-1:hover span:nth-child(2) {
+    left: 80%;
+    transform: rotate(90deg);
+    color: var(--color);
+}
+
+.imagenes-inicio {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+}
+
+.imagenes-inicio img {
+    margin: 0 10px;
+    left: 160px;
+    width: 160px;
+}
+
+.hidden {
+    display: none;
+}
+
+#rules {
+    margin-top: 20px;
+    text-align: center;
+    padding: 20px;
+    background-color: rgba(0, 0, 0, 0.5);
+    color: #fff;
+    border-radius: 5px;
+    font-size: 15px; /* Ajusta el tamaño del texto de las reglas */
+}

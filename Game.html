@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Piedra, Papel o Tijeras</title>
+    <link rel="stylesheet" href="css/Game.css">
+</head>
+<body>
+    <div class="container">
+        <div class="loader" id="loader"></div>
+        <div class="countdown" id="countdown">5</div>
+    </div>
+
+    <section class="section-1">
+        <img src="Mano0.png" alt="Papel" class="papel" id="Mano0">
+        <img src="Mano1.png" alt="Piedra" class="piedra" id="Mano1">
+        <img src="Mano2.png" alt="Tijeras" class="tijeras" id="Mano2">
+    </section>
+
+    <div class="resultado hidden" id="resultado">
+        <div class="resultado-texto" id="resultado-texto"></div>
+        <div class="record" id="record">Ganadas: 0 | Perdidas: 0</div>
+        <button id="reiniciar-btn" class="hidden">Volver a Empezar</button>
+        <p id="mensaje-espera"></p>
+    </div>
+
+    <script type="module" src="js/Game.js"></script>
+</body>
+</html>

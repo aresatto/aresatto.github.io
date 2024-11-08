@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sala de Espera</title>
+    <link rel="icon" href="favicon.ico" type="image/x-icon"> <!-- Opcional -->
+    <link rel="stylesheet" href="css/salaEspera.css"> <!-- Enlazar el archivo CSS -->
+</head>
+<body>
+    <h1>Sala de Espera</h1>
+    <p>Esperando a que ambos jugadores estén listos...</p>
+    
+    <div id="player-status">
+        <p id="player1-status">Jugador 1: Esperando</p>
+        <p id="player2-status">Jugador 2: Esperando</p>
+    </div>
+
+    <button id="ready-btn">Estoy Listo</button>
+    <button id="start-game-btn" disabled>Iniciar Juego</button>
+    <p id="game-code">Código de la sala: <span id="room-code"></span></p>
+    <button id="copy-code-btn">Copiar Código</button>
+
+    <script type="module" src="js/salaEspera.js"></script>
+</body>
+</html>

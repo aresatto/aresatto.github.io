@@ -1,0 +1,50 @@
+/* Estilos para la página de código */
+
+body {
+    background-image: linear-gradient(rgba(69, 69, 71, 0.75), rgba(37, 37, 37, 0.75)), url(fondo.png);
+    background-size: 70px;
+    margin: 0;
+    font-family: Arial, sans-serif;
+}
+
+.section-1 {
+    display: flex;
+    height: 100vh;
+    gap: 25px;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+
+.titulo-inicio {
+    font-size: 3em;
+    color: #100241;
+}
+
+#game-code-text {
+    font-size: 1.5em;
+    color: #fff;
+}
+
+.btn {
+    border: 3px solid;
+    padding: 15px 50px;
+    text-decoration: none;
+    letter-spacing: 8px;
+    color: #000000;
+    transition: all 0.6s ease;
+}
+
+.imagenes-inicio {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+}
+
+.imagenes-inicio img {
+    margin: 0 10px;
+    left: 160px;
+    width: 160px;
+}
+

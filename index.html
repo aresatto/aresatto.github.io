@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Piedra Papel Tijeras</title>
+    <link rel="stylesheet" href="css/index.css">
+    <script type="module" src="js/firebaseConfig.js"></script>
+</head>
+<body>
+    <section class="section-1">
+        <h1 class="titulo-inicio" id="game-title">Piedra<br> Papel ó<br> Tijeras</h1>
+        <div id="rules" class="hidden">
+            <p>Presione Jugar y elija entre:<br> piedra, papel o tijeras<br> antes de que pasen los 5 segundos.</p>
+        </div>
+        <a href="nombreJugador.html?mode=create" class="btn btn-formulario btn-1" id="nuevo-juego-btn">Nuevo Juego
+            <span></span>
+            <span></span>
+        </a>
+        <a href="nombreJugador2.html" class="btn btn-formulario btn-1" id="ingresar-sala-btn">Ingresar a Sala
+            <span></span>
+            <span></span>
+        </a>
+        <div class="imagenes-inicio">
+            <img src="Mano0.png" alt="papel">
+            <img src="Mano1.png" alt="piedra">
+            <img src="Mano2.png" alt="tijeras">
+        </div>
+    </section>
+    <script src="js/index.js"></script>
+</body>
+</html>
