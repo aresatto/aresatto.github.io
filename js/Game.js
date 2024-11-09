@@ -1,3 +1,17 @@
+import { firestoreDb, doc, updateDoc } from './firebaseConfig.js';
+import { realtimeDb } from './firebaseConfig.js';
+import { ref, set, onValue } from 'https://www.gstatic.com/firebasejs/9.6.1/firebase-database.js';
+
+// Variables de estado
+let player1Score = 0;
+let player2Score = 0;
+let countdownInterval;
+let eleccionJugador = null;
+const roomId = localStorage.getItem('roomId');
+const playerName = localStorage.getItem('playerName');
+const player1Name = localStorage.getItem('player1Name');
+const player2Name = localStorage.getItem('player2Name');
+
 document.addEventListener('DOMContentLoaded', () => {
     const countdownElement = document.getElementById('countdown');
     const loader = document.getElementById('loader');
@@ -7,24 +21,12 @@ document.addEventListener('DOMContentLoaded', () => {
     const recordDiv = document.getElementById('record');
     let countdown = 5;
 
-    // Mapeo de IDs de imágenes a opciones
-    const idToChoiceMap = {
-        'Mano0': 'papel',
-        'Mano1': 'piedra',
-        'Mano2': 'tijeras'
-    };
-
     document.querySelectorAll('.section-1 img').forEach(img => {
         img.addEventListener('click', (event) => {
-            const eleccionJugador = idToChoiceMap[event.target.id];  // Mapeo del ID a la elección
-            if (eleccionJugador) {
-                enviarEleccion(eleccionJugador);
-            } else {
-                console.error("No se pudo mapear la elección del jugador.");
-            }
+            eleccionJugador = event.target.id;
+            enviarEleccion(eleccionJugador);
         });
     });
-
     const enviarEleccion = async (choice) => {
         const field = playerName === player1Name ? 'player1Choice' : 'player2Choice';
         await updateDoc(doc(firestoreDb, 'rooms', roomId), {
@@ -43,36 +45,36 @@ document.addEventListener('DOMContentLoaded', () => {
             const data = snapshot.val();
             if (data && data.player1Choice && data.player2Choice) {
                 iniciarAnimacion(data.player1Choice, data.player2Choice);
+            } else {
+                // Aquí maneja el caso en que uno de los jugadores no elija dentro del tiempo permitido
+                if (data) {
+                    const jugador1Listo = data.player1Choice !== undefined;
+                    const jugador2Listo = data.player2Choice !== undefined;
+                    if (!jugador1Listo || !jugador2Listo) {
+                        mostrarResultado(jugador1Listo ? data.player1Choice : null, jugador2Listo ? data.player2Choice : null);
+                    }
+                }
             }
         });
     };
 
+    listenForChoices(roomId);
+
     const iniciarAnimacion = (choice1, choice2) => {
-        const player1Index = getHandIndex(choice1);
-        const player2Index = getHandIndex(choice2);
+        const player1Element = document.getElementById(`Mano${getHandIndex(choice1)}`);
+        const player2Element = document.getElementById(`Mano${getHandIndex(choice2)}`);
 
-        // Verificar si los índices son válidos antes de continuar
-        if (player1Index === -1 || player2Index === -1) {
-            console.error("Una de las elecciones no es válida. Elección 1:", choice1, " Elección 2:", choice2);
-            return;
-        }
-
-        const player1Element = document.getElementById(`Mano${player1Index}`);
-        const player2Element = document.getElementById(`Mano${player2Index}`);
-
-        // Asegurarse de que los elementos existan antes de aplicar clases
         if (player1Element && player2Element) {
             player1Element.classList.add('selected');
             player2Element.classList.add('selected');
+
+            setTimeout(() => {
+                mostrarResultado(choice1, choice2);
+            }, 3000);
         } else {
-            console.error("No se encontraron elementos para las manos.");
+            console.error("Uno de los elementos no se encontró");
         }
-
-        setTimeout(() => {
-            mostrarResultado(choice1, choice2);
-        }, 3000);
     };
-
     const getHandIndex = (choice) => {
         switch (choice) {
             case 'papel':
@@ -82,7 +84,7 @@ document.addEventListener('DOMContentLoaded', () => {
             case 'tijeras':
                 return 2;
             default:
-                return -1; // Retornar -1 si la elección es inválida
+                return -1;
         }
     };
 
@@ -90,7 +92,16 @@ document.addEventListener('DOMContentLoaded', () => {
         let resultText;
         resultadoDiv.classList.remove('verde', 'rojo', 'naranja');
 
-        if (choice1 === choice2) {
+        if (choice1 === null || choice2 === null) {
+            // Un jugador no ha elegido
+            resultText = choice1 === null ? 'Perdiste por no elegir' : '¡Ganaste!';
+            resultadoDiv.classList.add(choice1 === null ? 'rojo' : 'verde');
+            if (choice1 === null) {
+                player2Score++;
+            } else {
+                player1Score++;
+            }
+        } else if (choice1 === choice2) {
             resultText = '¡Es un empate!';
             resultadoDiv.classList.add('naranja');
         } else if (
@@ -134,10 +145,8 @@ document.addEventListener('DOMContentLoaded', () => {
         resultadoDiv.classList.add('hidden');
         reiniciarBtn.classList.add('hidden');
 
-        // Actualizar estado en Realtime Database
         update(ref(realtimeDb, 'games/' + roomId + '/' + playerName), { ready: false });
 
-        // Escuchar si el otro jugador está listo
         const otherPlayer = playerName === player1Name ? player2Name : player1Name;
         onValue(ref(realtimeDb, 'games/' + roomId + '/' + otherPlayer), (snapshot) => {
             const data = snapshot.val();

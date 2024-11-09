@@ -21,7 +21,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     localStorage.setItem('playerName', playerName);
                     localStorage.setItem('roomId', roomId);
                     console.log(`Sala actualizada: ${roomId} con jugador2: ${playerName}`);
-                    window.location.href = 'salaEspera.html';  // Redirigir correctamente
+                    window.location.href = 'salaEspera.html';
                 } else {
                     alert('ID de sala no válido.');
                     console.error('ID de sala no válido.');

@@ -9,10 +9,9 @@ async function createRoom(playerName) {
             player2: null,
             status: "waiting"
         });
-        const roomId = roomRef.id; // Obtener el ID de la sala
+        const roomId = roomRef.id;
         console.log(`Room created with ID: ${roomId}`);
 
-        // Establecer el estado del jugador 1 en "ready" en Realtime Database
         await update(ref(realtimeDb, 'games/' + roomId + '/player1'), { status: 'ready' });
 
         return roomId;
@@ -34,7 +33,6 @@ document.addEventListener('DOMContentLoaded', async () => {
                 localStorage.setItem('roomId', roomId);
                 document.getElementById('game-code').textContent = roomId;
 
-                // Permitir que el jugador copie el código antes de redirigir
                 const copyButton = document.getElementById('copy-code-btn');
                 copyButton.addEventListener('click', function() {
                     navigator.clipboard.writeText(roomId).then(function() {
@@ -44,10 +42,9 @@ document.addEventListener('DOMContentLoaded', async () => {
                     });
                 });
 
-                // Esperar unos segundos antes de redirigir a salaEspera.html
                 setTimeout(() => {
                     window.location.href = 'salaEspera.html';
-                }, 5000); // Ajusta el tiempo de espera según sea necesario
+                }, 5000);
             } else {
                 alert("Hubo un problema al crear la sala. Intenta de nuevo.");
             }
