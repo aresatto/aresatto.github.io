@@ -93,7 +93,6 @@ document.addEventListener('DOMContentLoaded', () => {
         resultadoDiv.classList.remove('verde', 'rojo', 'naranja');
 
         if (choice1 === null || choice2 === null) {
-            // Un jugador no ha elegido
             resultText = choice1 === null ? 'Perdiste por no elegir' : '¡Ganaste!';
             resultadoDiv.classList.add(choice1 === null ? 'rojo' : 'verde');
             if (choice1 === null) {
