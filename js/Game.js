@@ -19,6 +19,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const resultadoTexto = document.getElementById('resultado-texto');
     const reiniciarBtn = document.getElementById('reiniciar-btn');
     const recordDiv = document.getElementById('record');
+    const opciones = ['piedra', 'papel', 'tijeras'];
     let countdown = 5;
 
     document.querySelectorAll('.section-1 img').forEach(img => {
@@ -27,6 +28,7 @@ document.addEventListener('DOMContentLoaded', () => {
             enviarEleccion(eleccionJugador);
         });
     });
+
     const enviarEleccion = async (choice) => {
         const field = playerName === player1Name ? 'player1Choice' : 'player2Choice';
         await updateDoc(doc(firestoreDb, 'rooms', roomId), {
@@ -38,7 +40,6 @@ document.addEventListener('DOMContentLoaded', () => {
     const updatePlayerChoiceRealtime = (roomId, player, choice) => {
         set(ref(realtimeDb, 'games/' + roomId + '/' + player), { choice });
     };
-
     const listenForChoices = (roomId) => {
         const gameRef = ref(realtimeDb, 'games/' + roomId);
         onValue(gameRef, (snapshot) => {
@@ -75,6 +76,7 @@ document.addEventListener('DOMContentLoaded', () => {
             console.error("Uno de los elementos no se encontró");
         }
     };
+
     const getHandIndex = (choice) => {
         switch (choice) {
             case 'papel':
@@ -87,7 +89,6 @@ document.addEventListener('DOMContentLoaded', () => {
                 return -1;
         }
     };
-
     const mostrarResultado = (choice1, choice2) => {
         let resultText;
         resultadoDiv.classList.remove('verde', 'rojo', 'naranja');
